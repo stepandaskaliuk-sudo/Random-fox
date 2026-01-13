@@ -1,53 +1,51 @@
-// Selectăm elementele din DOM
 const foxImage = document.getElementById('foxImage');
-const foxSpecies = document.getElementById('foxSpecies');
+const foxIdCell = document.getElementById('foxId');
 const loadBtn = document.getElementById('loadBtn');
+const statusBadge = document.getElementById('status-badge');
 
 /**
- * Funcție asincronă pentru a prelua datele de la API
+ * Funcție asincronă pentru a face fetch la API-ul Random Fox
  */
 async function fetchRandomFox() {
-    // Schimbăm textul butonului și imaginea în timpul încărcării (opțional, pentru UX)
+    // Vizual feedback în timpul încărcării
     loadBtn.innerText = "Se încarcă...";
     loadBtn.disabled = true;
 
     try {
-        // Realizăm cererea către API
         const response = await fetch('https://randomfox.ca/floof/');
-
-        // Verificăm dacă răspunsul este de succes (status 200-299)
+        
         if (!response.ok) {
-            throw new Error(`Eroare HTTP! Status: ${response.status}`);
+            throw new Error('Eroare la comunicarea cu serverul.');
         }
 
-        // Parsăm datele JSON
         const data = await response.json();
 
-        // Populăm elementele din pagină
-        // API-ul returnează un obiect de forma: { image: "url", link: "url" }
+        // 1. Populăm imaginea
         foxImage.src = data.image;
 
-        /* Notă: Deoarece API-ul randomfox.ca returnează doar imaginea, 
-           nu și specia exactă, vom păstra sau reseta câmpul speciei.
-        */
-        foxSpecies.innerText = "Vulpes vulpes (Vulpe roșie)";
+        // 2. Extragem un ID din URL-ul imaginii (ex: "https://randomfox.ca/images/12.jpg" -> "12")
+        const urlParts = data.image.split('/');
+        const fileName = urlParts[urlParts.length - 1]; // "12.jpg"
+        const id = fileName.split('.')[0]; // "12"
+
+        // 3. Populăm elementele tabelare din DOM
+        foxIdCell.innerText = id;
+        statusBadge.style.background = "#10b981"; // Verde pentru succes
+        statusBadge.innerText = "Activ";
 
     } catch (error) {
-        // Afișăm eroarea în consolă și informăm utilizatorul
-        console.error("A apărut o problemă la preluarea datelor:", error);
-        alert("Nu am putut încărca imaginea. Verifică conexiunea la internet sau API-ul.");
-        
-        // În caz de eroare, putem pune o imagine de tip placeholder
-        foxImage.alt = "Eroare la încărcare";
+        console.error("Eroare:", error);
+        statusBadge.innerText = "Eroare";
+        statusBadge.style.background = "#ef4444"; // Roșu pentru eroare
+        alert("Nu s-a putut încărca vulpea. Încearcă din nou!");
     } finally {
-        // Resetăm butonul indiferent dacă cererea a reușit sau a eșuat
         loadBtn.innerText = "Afișează o vulpe nouă";
         loadBtn.disabled = false;
     }
 }
 
-// Adăugăm un Event Listener pe buton pentru a încărca o imagine nouă la click
+// Eveniment pentru buton
 loadBtn.addEventListener('click', fetchRandomFox);
 
-// Apelăm funcția o dată la încărcarea paginii pentru a nu avea un container gol
-window.addEventListener('DOMContentLoaded', fetchRandomFox);
+// Încărcăm prima vulpe automat la deschiderea paginii
+document.addEventListener('DOMContentLoaded', fetchRandomFox);
