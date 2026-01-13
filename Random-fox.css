@@ -1,0 +1,94 @@
+
+/* Stil general pentru pagină */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #312887; /* fundal deschis */
+    color: #333;
+}
+
+/* Container principal */
+.app {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 32px;
+    background-color: #ffffff;
+    border-radius: 16px; /* colțuri rotunjite */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Titlu */
+h1 {
+    margin-bottom: 24px;
+    font-size: 28px;
+    text-align: center;
+    color: #111;
+}
+
+/* Container imagine */
+#image-container {
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+}
+
+#image-container img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Container specie */
+#species-container {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Tabel (dacă vei adăuga mai multe informații) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* pentru colțuri rotunjite */
+}
+
+table th, table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background-color: #f0f0f0;
+    font-weight: 600;
+}
+
+/* Buton */
+button {
+    margin-top: 24px;
+    background-color: #4f46e5; /* albastru modern */
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* tranziție pentru hover */
+}
+
+/* Efect hover */
+button:hover {
+    background-color: #3730a3; /* albastru mai închis */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
